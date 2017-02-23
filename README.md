@@ -97,6 +97,6 @@ E- + 6/5 H+ + 1/5 NO3- ==> 3/5 H2O + 1/10 N2
 print("{} out of {} tests passed".format(k, len(eqn))
 ```
 
-    12 tests passed
+    12 out of 12 tests passed
 
 
