@@ -15,6 +15,7 @@ pip install .
 
 ### ChemicalFormula 
 ```python
+>>> from rxneqn import ChemicalFormula
 >>> chemical_formula = 'C6H12O5.5N'
 >>> cf = ChemicalFormula(chemical_formula)
 >>> cf.get_chemical_composition()
@@ -30,6 +31,7 @@ pip install .
 ### Mixture
 
 ```python
+>>> from rxneqn import Mixture
 >>> mix = Mixture('3 C6H12O6 + 4 NO2-')
 >>> mix.subtract_from_mixture(Mixture('5 NO2- + H+'))
 ```
@@ -40,6 +42,7 @@ pip install .
 ### Reaction
 
 ```python
+>>> from rxneqn import Reaction
 >>> rxn = Reaction('1/4 CO2 + 1/12NH3 + H+  ==> 1/12 CH3CHNH2COOH + 1/3 H2O + OH-')
 >>> rxn -  Reaction('CO2 + H2O ==> 4 HCO3')
 ```
@@ -55,6 +58,7 @@ rxn.normalize()
 ### HalfReactionBalancer
 
 ```python
+>>> from rxneqn import HalfReactionBalancer
 >>> alanine = 'CH3CHNH2COOH'
 >>> carbon_dioxide = 'CO2'
 >>> nitrogen_source = 'NH3'
@@ -92,9 +96,9 @@ E- + 6/5 H+ + 1/5 NO3- ==> 3/5 H2O + 1/10 N2
 >>> k = 0
 
 >>> for i in eqn:
-    assert str(eqn[i]) == truth_eqn[k]
-    k += 1
-print("{} out of {} tests passed".format(k, len(eqn))
+    	assert( str(eqn[i]) == truth_eqn[k] )
+    	k += 1
+>>> print("{} out of {} tests passed".format(k, len(eqn))
 ```
 
     12 out of 12 tests passed
