@@ -11,3 +11,4 @@ from .mixture import Mixture
 from .reaction import Reaction
 from .utils import LCD, GCD, LCM
 from .half_rxn_balancer import HalfReactionBalancer
+import .test_rxneqn
