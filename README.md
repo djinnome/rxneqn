@@ -15,9 +15,9 @@ pip install .
 
 ### ChemicalFormula 
 ```python
-chemical_formula = 'C6H12O5.5N'
-cf = ChemicalFormula(chemical_formula)
-cf.get_chemical_composition()
+>>> chemical_formula = 'C6H12O5.5N'
+>>> cf = ChemicalFormula(chemical_formula)
+>>> cf.get_chemical_composition()
 ```
 
     C            6
@@ -30,8 +30,8 @@ cf.get_chemical_composition()
 ### Mixture
 
 ```python
-mix = Mixture('3 C6H12O6 + 4 NO2-')
-mix.subtract_from_mixture(Mixture('5 NO2- + H+'))
+>>> mix = Mixture('3 C6H12O6 + 4 NO2-')
+>>> mix.subtract_from_mixture(Mixture('5 NO2- + H+'))
 ```
 
 
@@ -40,8 +40,8 @@ mix.subtract_from_mixture(Mixture('5 NO2- + H+'))
 ### Reaction
 
 ```python
-rxn = Reaction('1/4 CO2 + 1/12NH3 + H+  ==> 1/12 CH3CHNH2COOH + 1/3 H2O + OH-')
-rxn -  Reaction('CO2 + H2O ==> 4 HCO3')
+>>> rxn = Reaction('1/4 CO2 + 1/12NH3 + H+  ==> 1/12 CH3CHNH2COOH + 1/3 H2O + OH-')
+>>> rxn -  Reaction('CO2 + H2O ==> 4 HCO3')
 ```
     H+ + 4 HCO3 + 1/12 NH3 ==> 1/12 CH3CHNH2COOH + 3/4 CO2 + 4/3 H2O + OH-
 
