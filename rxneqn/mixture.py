@@ -1,6 +1,8 @@
 import copy
 import re
 from fractions import Fraction
+from . import ChemicalFormula
+import pandas as pd
 class Mixture:
     def __init__( self, mixture ):
         self.mixture = self.parse_mixture( mixture )
