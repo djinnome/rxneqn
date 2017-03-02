@@ -18,7 +18,7 @@ E- + 6/5 H+ + 1/5 NO3- ==> 3/5 H2O + 1/10 N2
 1/6 CO2 + E- + H+ + 1/12 HCO3- + 1/12 NH4+ ==> 1/12 CH3CHNH2COOH + 5/12 H2O
 1/12 CO2 + E- + H+ + 1/6 HCO3- + 1/12 NH4+ ==> 1/12 CH3CHNH2COO- + 1/2 H2O
 1/5 CO2 + E- + H+ + 1/20 HCO3- + 1/20 NH4+ ==> 1/20 C5H7O2N + 9/20 H2O
-1/5 CO2 + E- + 21/20 H+ + 1/20 HCO3- + 1/20 NH4+ ==> 1/20 C5H7O2N+ + 9/20 H2O
+4/19 CO2 + E- + 20/19 H+ + 1/19 HCO3- + 1/19 NH4+ ==> 1/19 C5H7O2N+ + 9/19 H2O
 """.split('\n')
 eqn = {}
 eqn[13] = half_rxn.balance_half_reaction('C6H12O6', 'CO2')

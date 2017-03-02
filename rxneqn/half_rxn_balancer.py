@@ -12,7 +12,7 @@ class HalfReactionBalancer:
 where d = (4*n + a  - 2*b  - 3*c)
         """
         n,a,b,c, f = Fraction(C),Fraction(H),Fraction(O),Fraction(N), charge
-        d = (4*n + a - 2*b -3*c)
+        d = (4*n + a - 2*b -3*c - f)
         if f == 0:
             biomass_charge = ''
         elif f == 1:
