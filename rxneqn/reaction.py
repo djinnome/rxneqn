@@ -1,12 +1,22 @@
 import re
 import pandas as pd
+import numpy as np
+from pint import UnitRegistry
 from .utils import LCD
 from fractions import Fraction
 from . import Mixture, ChemicalFormula
 class Reaction:
     def __init__(self, rxn ):
         self.rxn = self.parse_reaction( rxn )
-     
+
+    def setGibbsFreeEnergy( self, deltaG0pH7 ):
+        self.unit_registry = UnitRegistry()
+        self.deltaG0pH7 = deltaG0pH7
+        
+    def getStandardFreeEnergy( self, temperature=273):
+        u = self.unit_registry
+        gas_constant = 8.3144598*u.joule/u.mole/u.kelvin
+        return self.deltaG0pH7 - gas_constant*temperature*u.kelvin*np.ln(10**-7)
         
     def __mul__(self, other):
         if type(other) in [int, float, Fraction]:
