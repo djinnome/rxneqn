@@ -5,6 +5,28 @@ from fractions import Fraction
 class HalfReactionBalancer:
     def __init__( self ):
         pass
+
+    def custom_half_reaction( self, C, H, O, N, charge=0):
+        """generate custom half reaction from empirical formula
+        (n-c)/d CO2 + c/d NH4+ + c/d HCO3- + (d+f)/d H+ + E- ==> 1/d CnHaObNc  + (2*n -b + c)/d H2O
+where d = (4*n + a  - 2*b  - 3*c)
+        """
+        n,a,b,c, f = Fraction(C),Fraction(H),Fraction(O),Fraction(N), charge
+        d = (4*n + a - 2*b -3*c)
+        if f == 0:
+            biomass_charge = ''
+        elif f == 1:
+            biomass_charge = '+'
+        elif f > 1:
+            biomass_charge = '+{}'.format(f)
+        else:
+            biomass_charge = '{}'.format(f)
+        stoichiometry = dict(n=C,a=H, b=O,c=N,
+                             CO2=(n-c)/d, NH4 = c/d, HCO3 = c/d,
+                             biomass=1/d,H2O = (2*n - b + c)/d, proton=(d+f)/d,
+                             charge=biomass_charge)
+        eqn = '{CO2} CO2 + {NH4} NH4+ + {HCO3} HCO3- + {proton} H+ + E- ==> {biomass} C{n}H{a}O{b}N{c}{charge} + {H2O} H2O'
+        return Reaction(eqn.format(**stoichiometry))
     def balance_half_reaction( self, oxidized_form, reduced_form, nitrogen_source='NH3' ):
         return self.normalize_by_electron(
                     self.balance_charge(
