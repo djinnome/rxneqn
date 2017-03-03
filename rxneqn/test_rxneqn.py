@@ -21,7 +21,7 @@ E- + 6/5 H+ + 1/5 NO3- ==> 3/5 H2O + 1/10 N2
 1/5 CO2 + E- + H+ + 1/20 HCO3- + 1/20 NH4+ ==> 1/20 C5H7O2N + 9/20 H2O
 4/19 CO2 + E- + 20/19 H+ + 1/19 HCO3- + 1/19 NH4+ ==> 1/19 C5H7O2N+ + 9/19 H2O
 1/4 CO2 + E- + H+ ==> 1/48 C12H22O11 + 13/48 H2O
-\\frac{1}{6}\\ \\text{C}\\text{O}_{2} + \\text{E}^- + \\text{H}^+ + \\frac{1}{12}\\ \\text{H}\\text{C}\\text{O}_{3}^- + \\frac{1}{12}\\ \\text{N}\\text{H}_{4}^+ \\rightarrow \\frac{1}{12}\\ \\text{C}\\text{H}_{3}\\text{C}\\text{H}\\text{N}\\text{H}_{2}\\text{C}\\text{O}\\text{O}\\text{H} + \\frac{5}{12}\\ \\text{H}_{2}\\text{O}
+\\frac{1}{6}\\ \\text{C}\\text{O}_{2} + \\text{e}^- + \\text{H}^+ + \\frac{1}{12}\\ \\text{H}\\text{C}\\text{O}_{3}^- + \\frac{1}{12}\\ \\text{N}\\text{H}_{4}^+ \\rightarrow \\frac{1}{12}\\ \\text{C}\\text{H}_{3}\\text{C}\\text{H}\\text{N}\\text{H}_{2}\\text{C}\\text{O}\\text{O}\\text{H} + \\frac{5}{12}\\ \\text{H}_{2}\\text{O}
 \\text{C}_{10}\\text{H}_{12}\\text{N}_{5}\\text{O}_{13}\\text{P}_{3}^{4-} + \\text{H}_{2}\\text{O} \\rightarrow \\text{C}_{10}\\text{H}_{12}\\text{N}_{5}\\text{O}_{10}\\text{P}_{2}^{3-} + \\text{H}^+ + \\text{H}\\text{O}_{4}\\text{P}^{2-}
 """.split('\n')
 eqn = {}

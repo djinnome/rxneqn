@@ -91,15 +91,20 @@ class ChemicalFormula:
     def __sub__( self, other ):
         return Mixture( str( self )) - Mixture( str( other ))
 
+    def atom_to_latex( self, atom ):
+        if atom == 'E':
+            return 'e'
+        else:
+            return atom
     def to_latex( self ):
         out = ''
         for atom in self.atoms['molecular_formula']:
             if atom['number'] == Fraction(1):
-                out +=  r'\text{%s}' % atom['symbol'] 
+                out +=  r'\text{%s}' % self.atom_to_latex( atom['symbol']  )
             elif atom['number'].denominator == 1:
-                out +=  r'\text{%s}_{%d}' % (atom['symbol'], atom['number'].numerator)
+                out +=  r'\text{%s}_{%d}' % (self.atom_to_latex(atom['symbol']), atom['number'].numerator)
             else:
-                out +=  r'\text{%s}_\frac{%d}{%d}' % (atom['symbol'], atom['number'].numeratoratom['number'].denominator)
+                out +=  r'\text{%s}_\frac{%d}{%d}' % (self.atom_to_latex(atom['symbol']), atom['number'].numerator,atom['number'].denominator)
         if self.atoms['charge'] == 0:
             return out
         elif self.atoms['charge'] == -1:
