@@ -22,6 +22,7 @@ E- + 6/5 H+ + 1/5 NO3- ==> 3/5 H2O + 1/10 N2
 4/19 CO2 + E- + 20/19 H+ + 1/19 HCO3- + 1/19 NH4+ ==> 1/19 C5H7O2N+ + 9/19 H2O
 1/4 CO2 + E- + H+ ==> 1/48 C12H22O11 + 13/48 H2O
 \\frac{1}{6}\\ CO_{2} + E^- + H^+ + \\frac{1}{12}\\ HCO_{3}^- + \\frac{1}{12}\\ NH_{4}^+ \\rightarrow \\frac{1}{12}\\ CH_{3}CHNH_{2}COOH + \\frac{5}{12}\\ H_{2}O
+C_{10}H_{12}N_{5}O_{13}P_{3}^{4-} + H_{2}O \\rightarrow C_{10}H_{12}N_{5}O_{10}P_{2}^{3-} + H^+ + HO_{4}P^{2-}
 """.split('\n')
 eqn = {}
 eqn[13] = half_rxn.balance_half_reaction('C6H12O6', 'CO2')
@@ -45,7 +46,8 @@ eqn[24] = half_rxn.balance_half_reaction('CO2','CH3CHNH2COO-','NH4+')
 eqn[25] = half_rxn.custom_half_reaction( C=5,H=7, O=2, N=1)
 eqn[26] = half_rxn.custom_half_reaction( C=5,H=7, O=2, N=1, charge=1)
 eqn[27] = half_rxn.custom_half_reaction( C=12, H=22, O=11, N=0)
-eqn[28] = Reaction(table3['O-2']).to_latex() 
+eqn[28] = Reaction(table3['O-2']).to_latex()
+eqn[29] = Reaction('C10H12N5O13P3-4 + H2O ==> C10H12N5O10P2-3 + H+ + HO4P-2').to_latex()
 k = 0
 
 molecules = dict(glucose='C6H1206',

@@ -106,10 +106,10 @@ class ChemicalFormula:
             return out + '^-'
         elif self.atoms['charge'] == 1:
             return out + '^+'
-        elif self.atoms['charge'] > 1:
-            return out + '^{+' + str( self.atoms['charge']) + '}'
+        elif self.atoms['charge'] > 0:
+            return out + '^{' + str( self.atoms['charge']) + '+}'
         else:
-            return out + '^{' + str(self.atoms['charge']) + '}'
+            return out + '^{' + str(-self.atoms['charge']) + '-}'
 
     def __str__(self,latex=False):
         out = ''
