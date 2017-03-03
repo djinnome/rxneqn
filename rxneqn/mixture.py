@@ -60,7 +60,8 @@ class Mixture:
                 else:
                     stoichiometry = Fraction(m.group(1))
                 chemical_formula = ChemicalFormula( m.group(2) )
-            parts.append(dict(chemical_formula=chemical_formula, stoichiometry=stoichiometry))
+            if stoichiometry != 0:
+                parts.append(dict(chemical_formula=chemical_formula, stoichiometry=stoichiometry))
         return parts
     
     def get_mixture( self ):
@@ -93,13 +94,24 @@ class Mixture:
         for m in self.mixture:
             charges += m['stoichiometry']*m['chemical_formula'].get_charge()
         return charges
-    def __repr__( self ):
+
+    def to_latex( self ):
         out = []
         for m in sorted(self.mixture, key=lambda x: str(x['chemical_formula'])):
             part = ''
             if m['stoichiometry'] == 1:
                 part = str(m['chemical_formula'])
             else:
+                part = str(m['stoichiometry']) + '\ ' + str(m['chemical_formula'])
+            out.append( part )
+        return ' + '.join( out )
+    def __repr__( self ):
+        out = []
+        for m in sorted(self.mixture, key=lambda x: str(x['chemical_formula'])):
+            part = ''
+            if m['stoichiometry'] == 1:
+                part = str(m['chemical_formula'])
+            elif m['stoichiometry'] != 0:
                 part = str(m['stoichiometry']) + ' ' + str(m['chemical_formula'])
             out.append( part )
         return ' + '.join( out )

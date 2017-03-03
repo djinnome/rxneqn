@@ -20,6 +20,7 @@ E- + 6/5 H+ + 1/5 NO3- ==> 3/5 H2O + 1/10 N2
 1/12 CO2 + E- + H+ + 1/6 HCO3- + 1/12 NH4+ ==> 1/12 CH3CHNH2COO- + 1/2 H2O
 1/5 CO2 + E- + H+ + 1/20 HCO3- + 1/20 NH4+ ==> 1/20 C5H7O2N + 9/20 H2O
 4/19 CO2 + E- + 20/19 H+ + 1/19 HCO3- + 1/19 NH4+ ==> 1/19 C5H7O2N+ + 9/19 H2O
+1/4 CO2 + E- + H+ ==> 1/48 C12H22O11 + 13/48 H2O
 """.split('\n')
 eqn = {}
 eqn[13] = half_rxn.balance_half_reaction('C6H12O6', 'CO2')
@@ -42,6 +43,7 @@ eqn[23] = half_rxn.balance_half_reaction('CO2','CH3CHNH2COOH','NH4+')
 eqn[24] = half_rxn.balance_half_reaction('CO2','CH3CHNH2COO-','NH4+')
 eqn[25] = half_rxn.custom_half_reaction( C=5,H=7, O=2, N=1)
 eqn[26] = half_rxn.custom_half_reaction( C=5,H=7, O=2, N=1, charge=1)
+eqn[27] = half_rxn.custom_half_reaction( C=12, H=22, O=11, N=0)
 k = 0
 
 molecules = dict(glucose='C6H1206',
@@ -66,4 +68,5 @@ for i in eqn:
     assert str(eqn[i]) == truth_eqn[k], "Equation[{}]: {} should be {}".format(i,str(eqn[i]), truth_eqn[k])
     k += 1
 assert(atp_hydrolysis.get_balance() == balance, "{} should be {}".format(atp_hydrolysis.get_balance(), balance))
+
 print("{} tests out of {} passed".format(k+1, len(eqn)+1))

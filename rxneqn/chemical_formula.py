@@ -33,7 +33,8 @@ class ChemicalFormula:
                 charge = int(charge[1:])
             elif charge[0] == '-':
                 charge = int(charge)
-            atoms.append( dict(symbol=atomic_symbol, atom=periodic.element(atomic_symbol), number=stoichiometry ))
+            if stoichiometry != 0:
+                atoms.append( dict(symbol=atomic_symbol, atom=periodic.element(atomic_symbol), number=stoichiometry ))
         return dict(molecular_formula=atoms, charge=charge)
     
     def get_charge( self ):
@@ -89,15 +90,38 @@ class ChemicalFormula:
     
     def __sub__( self, other ):
         return Mixture( str( self )) - Mixture( str( other ))
-    def __str__(self):
+
+    def to_latex( self ):
+        out = ''
+        for atom in self.atoms['molecular_formula']:
+            if atom['number'] == Fraction(1):
+                out += atom['symbol']
+            elif atom['number'].denominator == 1:
+                out += atom['symbol'] +  '_{' + str(atom['number'].numerator) + '}'
+            else:
+                out += atom['symbol'] + '_\frac{' + str(atom['number'].numerator) + '}{' + str(atom['number'].denominator) + '}'
+        if self.atoms['charge'] == 0:
+            return out
+        elif self.atoms['charge'] == -1:
+            return out + '^-'
+        elif self.atoms['charge'] == 1:
+            return out + '^+'
+        elif self.atoms['charge'] > 1:
+            return out + '^{+' + str( self.atoms['charge']) + '}'
+        else:
+            return out + '^{' + str(self.atoms['charge']) + '}'
+
+    def __str__(self,latex=False):
         out = ''
         for atom in self.atoms['molecular_formula']:
             if atom['number'] == Fraction(1):
                 out += atom['symbol']
             elif atom['number'].denominator == 1:
                 out += atom['symbol'] + str(atom['number'].numerator)
-            else:
+            elif atom['number'] != 0:
                 out += atom['symbol'] + str(atom['number'])
+            else:
+                out += ''
         if self.atoms['charge'] == 0:
             return out
         elif self.atoms['charge'] == -1:

@@ -89,7 +89,7 @@ class Reaction:
     def get_balance( self ):
         return pd.concat( [-self.rxn['reactant'].get_chemical_composition(), 
                            self.rxn['product'].get_chemical_composition()],
-                        axis=1).fillna(0).sum(axis=1)
+                          axis=1).fillna(0).sum(axis=1)
     
     def get_chemical_composition( self ):
         return pd.concat( [self.rxn['reactant'].get_chemical_composition(), 
