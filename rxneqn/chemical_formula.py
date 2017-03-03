@@ -95,11 +95,11 @@ class ChemicalFormula:
         out = ''
         for atom in self.atoms['molecular_formula']:
             if atom['number'] == Fraction(1):
-                out +=  atom['symbol'] 
+                out +=  r'\text{%s}' % atom['symbol'] 
             elif atom['number'].denominator == 1:
-                out +=  atom['symbol'] +  '_{' + str(atom['number'].numerator) + '}' 
+                out +=  r'\text{%s}_{%d}' % (atom['symbol'], atom['number'].numerator)
             else:
-                out += atom['symbol'] + r'_\frac{' + str(atom['number'].numerator) + '}{' + str(atom['number'].denominator) + '}'
+                out +=  r'\text{%s}_\frac{%d}{%d}' % (atom['symbol'], atom['number'].numeratoratom['number'].denominator)
         if self.atoms['charge'] == 0:
             return out
         elif self.atoms['charge'] == -1:
