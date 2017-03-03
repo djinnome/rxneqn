@@ -1,5 +1,6 @@
 from rxneqn import HalfReactionBalancer, Reaction
 import re
+import pandas as pd
 
 alanine = 'CH3CHNH2COOH'
 carbon_dioxide = 'CO2'
@@ -43,7 +44,26 @@ eqn[25] = half_rxn.custom_half_reaction( C=5,H=7, O=2, N=1)
 eqn[26] = half_rxn.custom_half_reaction( C=5,H=7, O=2, N=1, charge=1)
 k = 0
 
+molecules = dict(glucose='C6H1206',
+                NAD='C21H26N7O14P2',
+                ADP='C10H12N5O10P2-3',
+                Pi='HO4P-2',
+                proton='H+',
+                pyruvate='C3H3O3',
+                NADH='C21H27N7O14P2',
+                ATP='C10H12N5O13P3-4',
+                water='H2O')
+atp_hydrolysis = Reaction('{ATP} + {water} ==> {ADP} + {Pi} + {proton}'.format(**molecules))
+balance = pd.Series(dict(
+    C      =   0.0,
+    Charge =   0.0,
+    H      =   0.0,
+    N      =   0.0,
+    O      =   0.0,
+    P      =   0.0))
+
 for i in eqn:
     assert str(eqn[i]) == truth_eqn[k], "Equation[{}]: {} should be {}".format(i,str(eqn[i]), truth_eqn[k])
     k += 1
-print("{} tests out of {} passed".format(k, len(eqn)))
+assert(atp_hydrolysis.get_balance() == balance, "{} should be {}".format(atp_hydrolysis.get_balance(), balance))
+print("{} tests out of {} passed".format(k+1, len(eqn)+1))
