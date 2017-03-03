@@ -95,15 +95,19 @@ class Mixture:
             charges += m['stoichiometry']*m['chemical_formula'].get_charge()
         return charges
 
+    def stoichiometry_to_latex( self, stoich ):
+        stoich = Fraction( stoich )
+        if stoich == Fraction(1):
+           return ''
+        elif stoich.denominator == 1:
+           return r'{}\ '.format(stoich.numerator)
+        else:
+           return r'\frac{%d}{%d}\ ' % (stoich.numerator, stoich.denominator)
+
     def to_latex( self ):
         out = []
         for m in sorted(self.mixture, key=lambda x: str(x['chemical_formula'])):
-            part = ''
-            if m['stoichiometry'] == 1:
-                part = str(m['chemical_formula'])
-            else:
-                part = str(m['stoichiometry']) + '\ ' + str(m['chemical_formula'])
-            out.append( part )
+            out.append( self.stoichiometry_to_latex( m['stoichiometry'] ) + m['chemical_formula'].to_latex() )
         return ' + '.join( out )
     def __repr__( self ):
         out = []

@@ -80,7 +80,8 @@ class Reaction:
         species = self.get_species()
         lcd = LCD([self.get_stoichiometry_of_species( s ) for s in species])
         return self * lcd
-    
+    def to_latex( self ):
+        return '{} \rightarrow {}'.format(self.rxn['reactant'].to_latex(), self.rxn['product'].to_latex())
     def __repr__( self ):
         return str(self.rxn['reactant']) + ' ==> ' + str(self.rxn['product'])
     def __str__( self ):
