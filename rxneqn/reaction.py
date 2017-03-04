@@ -7,17 +7,21 @@ from fractions import Fraction
 from . import Mixture, ChemicalFormula
 class Reaction:
     u = UnitRegistry()
-    def __init__(self, rxn ):
+    gas_constant = 8.3144598*u.joule/u.mole/u.kelvin
+    def __init__(self, rxn, deltaGEE=0.0 ):
         self.rxn = self.parse_reaction( rxn )
+        self.setDeltaGEE( deltaGEE )
+    def setDeltaGEE( self, deltaGEE):
+        self.deltaGEE = deltaGEE
 
-    def setGibbsFreeEnergy( self, deltaG0pH7 ):
+    def getDeltaGEE( self ):
+        return self.deltaGEE
 
-        self.deltaG0pH7 = deltaG0pH7
-        
-    def getStandardFreeEnergy( self, temperature=273):
+    def setDeltaG0( self, deltaG0, temperature=273):
+        self.deltaGEE = deltaG0 + gas_constant*temperature*u.kelvin*np.ln(10**-7)
+    def getDeltaG0( self, temperature=273):
         u = self.u
-        gas_constant = 8.3144598*u.joule/u.mole/u.kelvin
-        return self.deltaG0pH7 - gas_constant*temperature*u.kelvin*np.ln(10**-7)
+        return self.deltaGEE - self.gas_constant*temperature*u.kelvin*np.ln(10**-7)
         
     def __mul__(self, other):
         if type(other) in [int, float, Fraction]:
@@ -38,6 +42,7 @@ class Reaction:
         rxn = Reaction( str(self ) )
         rxn.rxn['reactant'] = rxn.rxn['reactant'].multiply_factor( factor )
         rxn.rxn['product'] = rxn.rxn['product'].multiply_factor( factor )
+        rxn.setDeltaGEE( self.getDeltaGEE()*factor )
         return rxn
     
     def add_reaction( self, rxn ):
