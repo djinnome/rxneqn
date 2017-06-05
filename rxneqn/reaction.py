@@ -107,11 +107,23 @@ class Reaction:
     def __str__( self ):
         return self.__repr__()
 
+    def to_dict( self ):
+        rxn = {}
+        for reactant in self.get_reactants():
+            rxn[reactant.get_species()] = reactant.get_stoichiometry()
+        for product in self.get_products():
+            rxn[product.get_species()] = product.get_stoichiometry()
+        return rxn
+
+    def to_series( self ):
+        return pd.Series(self.to_dict(), index=self.get_species())
+
+    
     def get_balance( self ):
         return pd.concat( [-self.rxn['reactant'].get_chemical_composition(), 
                            self.rxn['product'].get_chemical_composition()],
                           axis=1).fillna(0).sum(axis=1)
-    
+
     def get_chemical_composition( self ):
         return pd.concat( [self.rxn['reactant'].get_chemical_composition(), 
                            self.rxn['product'].get_chemical_composition()],
