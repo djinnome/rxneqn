@@ -7,21 +7,24 @@ from fractions import Fraction
 from . import Mixture, ChemicalFormula
 class Reaction:
     u = UnitRegistry()
+    u.define('electron-equivalent = [] = e-eq = e-equiv = eeq')
     gas_constant = 8.3144598*u.joule/u.mole/u.kelvin
-    def __init__(self, rxn, deltaGEE=0.0 ):
+    def __init__(self, rxn, deltaGEE=None ):
         self.rxn = self.parse_reaction( rxn )
         self.setDeltaGEE( deltaGEE )
     def setDeltaGEE( self, deltaGEE):
         self.deltaGEE = deltaGEE
 
+    def hasDeltaGEE( self ):
+        return self.deltaGEE is not None
     def getDeltaGEE( self ):
         return self.deltaGEE
 
-    def setDeltaG0( self, deltaG0, temperature=273):
-        self.deltaGEE = deltaG0 + gas_constant*temperature*u.kelvin*np.ln(10**-7)
-    def getDeltaG0( self, temperature=273):
-        u = self.u
-        return self.deltaGEE - self.gas_constant*temperature*u.kelvin*np.ln(10**-7)
+    # def setDeltaG0( self, deltaG0, temperature=273):
+    #     self.deltaGEE = deltaG0 + gas_constant*temperature*u.kelvin*np.ln(10**-7)
+    # def getDeltaG0( self, temperature=273):
+    #     u = self.u
+    #     return self.deltaGEE - self.gas_constant*temperature*u.kelvin*np.ln(10**-7)
         
     def __mul__(self, other):
         if type(other) in [int, float, Fraction]:
@@ -42,7 +45,6 @@ class Reaction:
         rxn = Reaction( str(self ) )
         rxn.rxn['reactant'] = rxn.rxn['reactant'].multiply_factor( factor )
         rxn.rxn['product'] = rxn.rxn['product'].multiply_factor( factor )
-        rxn.setDeltaGEE( self.getDeltaGEE()*factor )
         return rxn
     
     def add_reaction( self, rxn ):
@@ -50,13 +52,21 @@ class Reaction:
             subtract_from_mixture(self.rxn['product']).subtract_from_mixture(rxn.rxn['product'])
         new_products = Mixture( str(self.rxn['product'])).add_to_mixture(rxn.rxn['product']).\
             subtract_from_mixture(self.rxn['reactant']).subtract_from_mixture(rxn.rxn['reactant'])
-        return Reaction(str(new_reactants) + ' ==> ' + str(new_products))
+        if self.hasDeltaGEE() and rxn.hasDeltaGEE():
+            newDeltaGEE = self.getDeltaGEE() + rxn.getDeltaGEE()
+        else:
+            newDeltaGEE = None
+        return Reaction(str(new_reactants) + ' ==> ' + str(new_products), newDeltaGEE)
     def subtract_reaction( self, rxn ):
         new_reactants = Mixture(str(self.rxn['reactant'])).add_to_mixture(rxn.rxn['product']).\
             subtract_from_mixture(self.rxn['product']).subtract_from_mixture(rxn.rxn['reactant'])
         new_products = Mixture( str(self.rxn['product'])).add_to_mixture(rxn.rxn['reactant']).\
             subtract_from_mixture(self.rxn['reactant']).subtract_from_mixture( rxn.rxn['product'])
-        return Reaction(str(new_reactants) + ' ==> ' + str(new_products))
+        if self.hasDeltaGEE() and rxn.hasDeltaGEE():
+            newDeltaGEE = self.getDeltaGEE() - rxn.getDeltaGEE()
+        else:
+            newDeltaGEE = None
+        return Reaction(str(new_reactants) + ' ==> ' + str(new_products), newDeltaGEE)
 
     def get_charge( self ):
         return self.rxn['product'].get_charge() - self.rxn['reactant'].get_charge()
@@ -71,7 +81,7 @@ class Reaction:
     
     def get_species( self ):
         return self.rxn['reactant'].get_species() + self.rxn['product'].get_species()
-    
+
     def parse_reaction( self, rxn ):
         if type(rxn) is Reaction:
             rxn = str(Reaction)
@@ -85,8 +95,13 @@ class Reaction:
         species = self.get_species()
         lcd = LCD([self.get_stoichiometry_of_species( s ) for s in species])
         return self * lcd
+    def deltaGEE_to_latex( self ):
+        if self.deltaGEE:
+            return r"\left(\Delta G^{0'} = %0.2f \frac{kJ}{\mathrm{e}^- equiv}\right)" % self.deltaGEE
+        else:
+            return ''
     def to_latex( self ):
-        return r'${} \rightarrow {}$'.format(self.rxn['reactant'].to_latex(), self.rxn['product'].to_latex())
+        return r'${} \rightarrow {} \  {}$'.format(self.rxn['reactant'].to_latex(), self.rxn['product'].to_latex(), self.deltaGEE_to_latex())
     def __repr__( self ):
         return str(self.rxn['reactant']) + ' ==> ' + str(self.rxn['product'])
     def __str__( self ):

@@ -13,7 +13,9 @@ from .utils import LCD, GCD, LCM
 from .half_rxn_balancer import HalfReactionBalancer
 
 
-molecular_formula = dict(glucose='C6H1206',
+molecular_formula = dict(glucose='C6H12O6',
+                         ammonia='NH3',
+                         ammonium='NH4+',
                          oxygen='O2',
                          sucrose='C12H22O11',
                          NAD='C21H26N7O14P2',
@@ -39,7 +41,13 @@ molecular_formula = dict(glucose='C6H1206',
                          palmitate='C16H31O2-',
                          propionate='CH3CH2COO-',
                          pyruvate='CH3COCOO-',
-                         succinate='C4H4O4-2')
+                         succinate='C4H4O4-2',
+                         nitrate='NO3-',
+                         sulfate='SO4-2',
+                         ironIII='Fe+3',
+                         ironII='Fe+2',
+                         dinitrogen='N2')
+
 deltaGEE = dict(glucose=41.35,
                 acetate=27.40,
                 alanine=31.37,
@@ -56,7 +64,13 @@ deltaGEE = dict(glucose=41.35,
                 palmitate=27.26,
                 propionate=27.63,
                 pyruvate=35.09,
-                succinate=29.09
+                succinate=29.09,
+                oxygen=-78.72,
+                nitrate=-72.20,
+                sulfate=20.85,
+                carbon_dioxide=23.53,
+                iron=-74.27,
+                pyruvate_to_cell_using_ammonium=18.8
                )
 # def make_half_reactions(molecules, deltaGEE):
 #     half_rxn = HalfReactionBalancer()
