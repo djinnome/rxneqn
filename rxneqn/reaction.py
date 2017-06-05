@@ -109,10 +109,10 @@ class Reaction:
 
     def to_dict( self ):
         rxn = {}
-        for reactant in self.rxn['reactant']:
-            rxn[reactant.get_species()] = reactant.get_stoichiometry()
-        for product in self.rxn['product']:
-            rxn[product.get_species()] = product.get_stoichiometry()
+        for reactant in self.get_reactants():
+            rxn[reactant] = self.rxn['reactant'].get_stoichiometry(reactant)
+        for product in self.get_products():
+            rxn[product] = self.rxn['product'].get_stoichiometry(product)
         return rxn
 
     def to_series( self ):
