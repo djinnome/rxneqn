@@ -11,6 +11,17 @@ class ChemicalFormula:
             self.atoms = self.parse_chemical_formula( chemical_formula )
         else:
             self.atoms = chemical_formula
+    def set_standard_chemical_potential( self, mu0, units ):
+        self.mu0 = mu0*units
+    def set_initial_concentration( self, c0, units ):
+        self.c0 = c0*units
+    def get_standard_chemical_potential( self ):
+        return self.mu0
+    def get_concentration( self ):
+        return self.c0
+    def get_chemical_potential( self, units ):
+        return self.mu0 + R*T*np.log( self.c0 )
+
     def parse_chemical_formula( self, chemical_formula ):
         if type(chemical_formula) is ChemicalFormula:
             chemical_formula = str(chemical_formula)

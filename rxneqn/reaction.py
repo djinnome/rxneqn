@@ -15,6 +15,16 @@ class Reaction:
     def setDeltaGEE( self, deltaGEE):
         self.deltaGEE = deltaGEE
 
+    def get_deltaGEE_from_potentials( self, mu0 ):
+        deltaGEE = 0
+        for species in self.get_species():
+            try:
+                deltaGEE +=  mu0[str(species)]*self.get_stoichiometry_of_species( species )
+            except KeyError:
+                print("Species {} not in mu0".format( species ))
+                deltaGEE += 0
+        return deltaGEE
+            
     def hasDeltaGEE( self ):
         return self.deltaGEE is not None
     def getDeltaGEE( self ):
@@ -97,11 +107,14 @@ class Reaction:
         return self * lcd
     def deltaGEE_to_latex( self ):
         if self.deltaGEE:
-            return r"\left(\Delta G^{0'} = %0.2f \frac{kJ}{\mathrm{e}^- equiv}\right)" % self.deltaGEE
+            return r"$\Delta G^{0'} = %0.2f \frac{kJ}{\mathrm{e}^- equiv}$" % self.deltaGEE
         else:
             return ''
-    def to_latex( self ):
-        return r'${} \rightarrow {} \  {}$'.format(self.rxn['reactant'].to_latex(), self.rxn['product'].to_latex(), self.deltaGEE_to_latex())
+    def to_latex( self, deltaGEE=False ):
+        if deltaGEE:
+            return r'${} \rightarrow {}$ | {}'.format(self.rxn['reactant'].to_latex(), self.rxn['product'].to_latex(), self.deltaGEE_to_latex())
+        else:
+            return r'${} \rightarrow {}$'.format(self.rxn['reactant'].to_latex(), self.rxn['product'].to_latex()
     def __repr__( self ):
         return str(self.rxn['reactant']) + ' ==> ' + str(self.rxn['product'])
     def __str__( self ):
