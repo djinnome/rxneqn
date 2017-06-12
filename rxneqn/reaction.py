@@ -114,7 +114,8 @@ class Reaction:
         if deltaGEE:
             return r'${} \rightarrow {}$ | {}'.format(self.rxn['reactant'].to_latex(), self.rxn['product'].to_latex(), self.deltaGEE_to_latex())
         else:
-            return r'${} \rightarrow {}$'.format(self.rxn['reactant'].to_latex(), self.rxn['product'].to_latex()
+            return r'${} \rightarrow {}$'.format(self.rxn['reactant'].to_latex(), self.rxn['product'].to_latex())
+                                                 
     def __repr__( self ):
         return str(self.rxn['reactant']) + ' ==> ' + str(self.rxn['product'])
     def __str__( self ):
