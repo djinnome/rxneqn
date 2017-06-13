@@ -107,12 +107,12 @@ class Reaction:
         return self * lcd
     def deltaGEE_to_latex( self ):
         if self.deltaGEE:
-            return r"$\Delta G^{0'} = %0.2f \frac{kJ}{\mathrm{e}^- equiv}$" % self.deltaGEE
+            return r"$%0.2f \frac{kJ}{\mathrm{e^{-}\ equiv}}$" % self.deltaGEE
         else:
             return ''
     def to_latex( self, deltaGEE=False ):
         if deltaGEE:
-            return r'${} \rightarrow {}$ | {}'.format(self.rxn['reactant'].to_latex(), self.rxn['product'].to_latex(), self.deltaGEE_to_latex())
+            return r'${}$ | $\rightarrow$ | ${}$ | {}'.format(self.rxn['reactant'].to_latex(), self.rxn['product'].to_latex(), self.deltaGEE_to_latex())
         else:
             return r'${} \rightarrow {}$'.format(self.rxn['reactant'].to_latex(), self.rxn['product'].to_latex())
                                                  
@@ -124,11 +124,11 @@ class Reaction:
     def to_dict( self ):
         rxn = {}
         for species in self.get_species():
-            rxn[species] = self.get_stoichiometry_of_species( species )
+            rxn[str(species)] = self.get_stoichiometry_of_species( species )
         return rxn
 
     def to_series( self ):
-        return pd.Series(self.to_dict(), index=self.get_species())
+        return pd.Series(self.to_dict(), index=[str(s) for s in self.get_species()])
 
     
     def get_balance( self ):
