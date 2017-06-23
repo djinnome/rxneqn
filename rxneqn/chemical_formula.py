@@ -58,12 +58,12 @@ class ChemicalFormula:
                 composition[atom['symbol']] += atom['number']
             else:
                 composition[atom['symbol']] = atom['number']
-        composition['Charge'] = self.atoms['charge']
+        composition['E-'] = self.atoms['charge']
         return pd.Series(composition)
     
     def __contains__( self, item ):
         for atom in self.atoms['molecular_formula']:
-            if item == atom:
+            if item == atom['symbol']:
                 return True
         return False
     def get_molecular_mass( self ):

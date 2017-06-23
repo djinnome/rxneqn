@@ -6,6 +6,7 @@ class HalfReactionBalancer:
     def __init__( self ):
         pass
 
+        
     def custom_half_reaction( self, C, H, O, N, charge=0):
         """generate custom half reaction from empirical formula
         (n-c)/d CO2 + c/d NH4+ + c/d HCO3- + (d+f)/d H+ + E- ==> 1/d CnHaObNc  + (2*n -b + c)/d H2O
