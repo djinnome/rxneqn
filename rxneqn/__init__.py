@@ -47,7 +47,7 @@ molecular_formula = dict(glucose='C6H12O6',
                          ironIII='Fe+3',
                          ironII='Fe+2',
                          dinitrogen='N2')
-mu0 = dict(Pi=-1052.8, # Equilibrator
+mu0m = dict(Pi=-1052.8, # Equilibrator mu0m (millimolar concentrations)
            ATP=-2295.1,
            ADP=-1422.5,
            glucose=-446.8,
