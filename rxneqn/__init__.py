@@ -82,7 +82,6 @@ deltaGEE = dict(
                 oxygen=-78.72,
                 nitrate=-72.20,
                 sulfate=20.85,
-                carbon_dioxide=,
                 iron=-74.27,
                 pyruvate_to_cell_using_ammonium=18.8
                )
