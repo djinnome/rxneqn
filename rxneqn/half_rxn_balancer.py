@@ -59,9 +59,11 @@ where d = (4*n + a  - 2*b  - 3*c)
     
     def balance_nonwater_atoms( self, rxn2 ):
         step3 = Reaction( str( rxn2 ))
+        elements_to_be_balanced = []
         for element in rxn2.get_chemical_composition().index:
             if element not in ['H', 'O', 'Charge']:
-                step3 = self.balance_element( step3, element )
+                elements_to_be_balanced.append( element )
+                step3 = self.balance_element( step3, elements_to_be_balanced )
         charge = step3.get_charge()
         if 'C' in step3.get_chemical_composition().index:
             if step3.get_charge() < 0:
