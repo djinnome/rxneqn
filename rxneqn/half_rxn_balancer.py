@@ -41,7 +41,7 @@ where d = (4*n + a  - 2*b  - 3*c)
     def setup_reduction( self, oxidized_form, reduced_form ):
         return Reaction(str(oxidized_form) + ' ==> ' + str(reduced_form) )
     
-    def balance_element( self, rxn, element_to_be_balanced ):
+    def balance_element( self, rxn, elements_to_be_balanced ):
         rxn = Reaction( str(rxn))
         cc = rxn.get_chemical_composition().loc[elements_to_be_balanced]
         molecules_of_elements = [m for m in cc.columns if cc[m].any()]
