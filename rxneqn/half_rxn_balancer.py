@@ -43,11 +43,11 @@ where d = (4*n + a  - 2*b  - 3*c)
     
     def balance_element( self, rxn, element_to_be_balanced ):
         rxn = Reaction( str(rxn))
-        molecules_of_element = rxn.get_chemical_composition().loc[element_to_be_balanced].fillna(0)
-        molecules_of_element = molecules_of_element[molecules_of_element!=0]
-        lcm = LCM(molecules_of_element)
-        stoich = lcm/molecules_of_element
-        return rxn*stoich
+        cc = rxn.get_chemical_composition().loc[elements_to_be_balanced]
+        molecules_of_elements = [m for m in cc.columns if cc[m].any()]
+        lcm = LCM([cc.loc[e,m] for m in molecules_of_elements for e in elements_to_be_balanced])
+        stoich = pd.Series(lcm, index=molecules_of_elements)
+        return rxn.multiply_factor(stoich)
 
     def add_species( self, rxn1, nitrogen_source ):
         if 'N' in rxn1.get_chemical_composition().index:
