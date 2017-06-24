@@ -16,6 +16,7 @@ from .half_rxn_balancer import HalfReactionBalancer
 molecular_formula = dict(glucose='C6H12O6',
                          ammonia='NH3',
                          ammonium='NH4+',
+                         bicarbonate='HCO3-',
                          oxygen='O2',
                          sucrose='C12H22O11',
                          NAD='C21H26N7O14P2',
@@ -46,17 +47,33 @@ molecular_formula = dict(glucose='C6H12O6',
                          sulfate='SO4-2',
                          ironIII='Fe+3',
                          ironII='Fe+2',
+                         hydrogen='H2',
                          dinitrogen='N2')
-mu0m = dict(Pi=-1052.8, # Equilibrator mu0m (millimolar concentrations)
-           ATP=-2295.1,
-           ADP=-1422.5,
-           glucose=-446.8,
-           ammonia=-26.5,
-           ammonium=-79.0,
-           water=-157.6,
-           carbon_dioxide=-403.1,
-           proton=-17.1)
-           
+
+mu0m = {'ADP': -1422.5, # Equilibrator mu0'm (ph7, 1 mM concentrations)
+ 'ATP': -2295.1,
+ 'Pi': -1052.8,
+ 'ammonia': -26.5,
+ 'ammonium': -79.0,
+ 'carbon_dioxide': -403.1,
+ 'glucose': -446.8,
+ 'proton': -17.1,
+ 'water': -157.6}
+
+
+mu0ph7 = dict(Pi=-1052.8, # Equilibrator mu0' (ph7, 1 M concentrations)
+              ATP=-2295.8,
+              ADP=-1423.6,
+              glucose=-429.7,
+              ammonia=89.6,
+              ammonium=79.0,
+              water=-157.6,
+              carbon_dioxide=-386.0,
+              bicarbonate=-546.8,
+              proton=0,
+              hydrogen=98.7
+)
+
            
 
 deltaGEE = dict(
