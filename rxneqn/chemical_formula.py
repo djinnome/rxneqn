@@ -58,7 +58,7 @@ class ChemicalFormula:
                 composition[atom['symbol']] += atom['number']
             else:
                 composition[atom['symbol']] = atom['number']
-        composition['E-'] = self.atoms['charge']
+        composition['Charge'] = self.atoms['charge']
         return pd.Series(composition)
     
     def __contains__( self, item ):
