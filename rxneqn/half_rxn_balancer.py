@@ -47,7 +47,7 @@ where d = (4*n + a  - 2*b  - 3*c)
         molecules_of_element = molecules_of_element[molecules_of_element!=0]
         lcm = LCM(molecules_of_element)
         stoich = lcm/molecules_of_element
-        return rxn.multiply_factor( stoich )
+        return rxn*stoich
 
     def add_species( self, rxn1, nitrogen_source ):
         if 'N' in rxn1.get_chemical_composition().index:
@@ -59,7 +59,7 @@ where d = (4*n + a  - 2*b  - 3*c)
     
     def balance_nonwater_atoms( self, rxn2 ):
         step3 = Reaction( str( rxn2 ))
-        for element in step3.get_chemical_composition().index:
+        for element in rxn2.get_chemical_composition().index:
             if element not in ['H', 'O', 'Charge']:
                 step3 = self.balance_element( step3, element )
         charge = step3.get_charge()
