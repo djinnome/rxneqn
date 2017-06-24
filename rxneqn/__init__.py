@@ -54,6 +54,7 @@ mu0m = dict(Pi=-1052.8, # Equilibrator mu0m (millimolar concentrations)
            ammonia=-26.5,
            ammonium=-79.0,
            water=-157.6,
+           carbon_dioxide=-403.1,
            proton=-17.1)
            
            
