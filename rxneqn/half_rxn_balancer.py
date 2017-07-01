@@ -107,10 +107,12 @@ where d = (4*n + a  - 2*b  - 3*c)
     def normalize_by_electron( self, rxn ):
         step7 = Reaction( str( rxn ))
         electrons = rxn.get_stoichiometry_of_species( 'E-')
-        factor = pd.Series(Fraction(1,electrons), index=[str(s) for s in step7.get_species()], dtype='object')
+
         if electrons > 0:
+            factor = pd.Series(Fraction(1,electrons), index=[str(s) for s in step7.get_species()], dtype='object')
             return step7.multiply_factor( factor )
         elif electrons == 0:
             return step7
         else:
+            factor = pd.Series(Fraction(1,electrons), index=[str(s) for s in step7.get_species()], dtype='object')
             return step7.multiply_factor( -factor )
